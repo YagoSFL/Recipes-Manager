@@ -8,8 +8,9 @@ import MenuBar from './menuBar'
 import If from './if'
 import { Typography, Hidden, Drawer, Divider, CssBaseline,
      ListItemIcon, MenuList, MenuItem } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 import { Home, Receipt } from '@material-ui/icons'
+import FloatingButton from './actionButton'
 
 const drawerWidth = 330
 
@@ -116,6 +117,7 @@ class MenuApp extends Component {
                         </Hidden>
                         <div className={classes.content}>
                             {children}
+                            <FloatingButton/>
                         </div>
                     </div>
             </Fragment>

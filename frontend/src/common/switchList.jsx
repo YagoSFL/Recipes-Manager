@@ -2,16 +2,15 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, List, ListItem, ListItemIcon, 
     ListItemText, Switch } from '@material-ui/core'
-import { Favorite, Whatshot } from '@material-ui/icons'
-import { ClockFast, Snowflake, Basecamp, Beer, Bowl, Carrot,
-    FoodOff, Sausage, Rice, Fish, Muffin, Pizza } from 'mdi-material-ui'
+import Icon from './icons'
 
 const styles = theme => ({
     root: {
         overflow: 'auto',
         [theme.breakpoints.up('md')]: {
           maxHeight: 518
-        }
+        },
+        color: '#757575'
     },
     colorSwitchBase: {
         color: '#F5F5F5',
@@ -23,7 +22,7 @@ const styles = theme => ({
         },
       },
       colorBar: {},
-      colorChecked: {},
+      colorChecked: {}
 })
 
 class SwitchList extends Component {
@@ -35,6 +34,7 @@ class SwitchList extends Component {
 
         return tags.map((tag, index)=> (
             <ListItem button key={index}>
+                <ListItemIcon className={classes.icon}><Icon icone={tag}/></ListItemIcon>
                 <ListItemText primary={tag} />
                 <Switch classes={{switchBase: classes.colorSwitchBase,
                         checked: classes.colorChecked,

@@ -2,11 +2,10 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
 import { Typography, Paper, Grid, Tooltip, List, ListItem, ListItemText } from '@material-ui/core'
-import { Favorite, Whatshot, AvTimer } from '@material-ui/icons'
-import { ClockFast, Snowflake, Basecamp, Beer, Bowl, Carrot,
-    FoodOff, Sausage, Rice, Fish, Muffin, Pizza  } from 'mdi-material-ui'
+import { AvTimer } from '@material-ui/icons'
 import { normalize, schema } from 'normalizr'
 import MenuApp from '../common/menu'
+import Icon from '../common/icons'
 
 const styles = theme => ({
     root: {
@@ -60,7 +59,6 @@ const RecipeView = props => {
       const mySchema = { recipes: [ receita ] }
       const normalizedData = normalize(recipe, mySchema);
 
-    //console.log(normalizedData.result)
     const renderIngredients = () => {
       const ingredients = normalizedData.result.ingredientes || []
       
@@ -106,41 +104,10 @@ const RecipeView = props => {
       ))
     }
 
-    let count = 0
     const tags = recipe.tags ?
-    recipe.tags.map(t => {
-      if( t === 'Quentes'){
-        return <Tooltip title='Quente' key={count++}><Whatshot/></Tooltip>
-      } else if (t === 'Frias') {
-        return <Tooltip key={count++} title='Fria'><Snowflake/></Tooltip>
-      } else if (t === 'Favoritas') {
-        return <Tooltip key={count++} title='Favorita'><Favorite/></Tooltip>
-      } else if (t === 'Rápidas') {
-        return <Tooltip key={count++} title='rápida'><ClockFast/></Tooltip>
-      } else if( t === 'Carnes') {
-        return <Tooltip key={count++} title='Carne'><Sausage/></Tooltip>
-      } else if ( t === 'Massas') {
-        return <Tooltip key={count++} title='Massa'><Pizza/></Tooltip>
-      } else if( t === 'Acompanhamentos') {
-        return <Tooltip key={count++} title='Acompanhamento'><Rice/></Tooltip>
-      } else if( t === 'Frutos do Mar') {
-        return <Tooltip key={count++} title='Frutos do Mar'><Fish/></Tooltip>
-      } else if( t === 'Sopas') {
-        return <Tooltip key={count++} title='Sopa'><Bowl/></Tooltip>
-      } else if( t === 'Vegetarianas') {
-        return <Tooltip key={count++} title='Vegetariana'><Muffin/></Tooltip>
-      } else if( t === 'Veganas') {
-        return <Tooltip key={count++} title='Vegana'><Carrot/></Tooltip>
-      } else if( t === 'Low Carb') {
-        return <Tooltip key={count++} title='Low Carb'><FoodOff/></Tooltip>
-      } else if( t === 'Sobremesas') {
-        return <Tooltip key={count++} title='Sobremesa'><Basecamp/></Tooltip>
-      } else if( t === 'Bebidas') {
-        return <Tooltip key={count++} title='Bebida'><Beer/></Tooltip>
-      } else {
-        return false
-      }
-    }) : []
+    recipe.tags.map(t => (
+      <Tooltip title={t}><Icon icone={t}/></Tooltip>
+    )) : []
   
     return (
         <MenuApp showFilters={false}>
