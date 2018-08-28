@@ -106,11 +106,11 @@ const RecipeView = props => {
 
     const tags = recipe.tags ?
     recipe.tags.map(t => (
-      <Tooltip title={t}><Icon icone={t}/></Tooltip>
+      <Tooltip title={t} key={t}><Icon icone={t}/></Tooltip>
     )) : []
   
     return (
-        <MenuApp showFilters={false}>
+        <MenuApp showFilters={false} route='/'>
             <div style={{paddingTop: 50}}>
             <Paper className={classes.root}>
                 <Grid container spacing={32}>

@@ -11,6 +11,7 @@ import { Typography, Hidden, Drawer, Divider, CssBaseline,
 import { withStyles } from '@material-ui/core/styles'
 import { Home, Receipt } from '@material-ui/icons'
 import FloatingButton from './actionButton'
+import { Link } from 'react-router-dom'
 
 const drawerWidth = 330
 
@@ -46,20 +47,20 @@ class MenuApp extends Component {
 
     state = {
         mobileOpen: false
-    }
+    }   
     
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }))
     }
 
     render(){
-        const { classes, children, handleChangeTab, handleFilter, 
-                tabValue, showFilters, showData } = this.props;
+        const { classes, children, handleChangeTab, handleFilter, showData, 
+                tabValue, showFilters, route , buttonValue, clickAction, hide } = this.props;
         const { mobileOpen } = this.state
         const drawer = (
         <div>
             <MenuList component="nav" >
-                    <MenuItem onClick={ () => showData()}>
+                    <MenuItem component={Link} to='/' onClick={ () => showData()}>
                     <ListItemIcon >
                         <Home />
                     </ListItemIcon>
@@ -117,7 +118,11 @@ class MenuApp extends Component {
                         </Hidden>
                         <div className={classes.content}>
                             {children}
-                            <FloatingButton/>
+                            <If teste={!hide}>
+                            <Link to={route} onClick={clickAction}>
+                                <FloatingButton value={buttonValue}/>
+                            </Link>
+                            </If>
                         </div>
                     </div>
             </Fragment>
@@ -125,6 +130,6 @@ class MenuApp extends Component {
     }
 }
 
-const mapStateToProps = state => ({tabValue: state.menu.tabValue})
+const mapStateToProps = state => ({tabValue: state.menu.tabValue, buttonValue: state.recipe.buttonValue})
 const mapDispatchToProps = dispatch => bindActionCreators({ handleChangeTab, handleFilter, showData }, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(MenuApp))

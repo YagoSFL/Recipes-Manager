@@ -27,13 +27,13 @@ const RecipesList = props => {
       const recipes = tabValue === 0 ? lista.filter(salgada) : lista.filter(doce)
   
       return (
-        <MenuApp showFilters={true} >
+        <MenuApp showFilters={true} route='/Cadastro'>
           <div style={{paddingTop: 80}}>
         <Paper className={classes.root}>
   
                 {recipes.map(r => {
                   let categorias = r.tags.map(t => (
-                    <i><Icon icone={t}/> {t}</i>
+                    <i key={t}><Icon icone={t}/> {t}</i>
                   ))
                   return (
                     <MenuList key={r._id}>

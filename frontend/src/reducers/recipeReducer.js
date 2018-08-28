@@ -2,6 +2,7 @@ const INITIAL_STATE = {
     currentRecipe: {},
     lista: [], 
     visible: {},
+    buttonValue: 0,
     filtros: {
         'Favoritas': false,
         'Quentes': false,
@@ -24,9 +25,9 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action)  => {
     switch(action.type) {
         case 'RECIPE_SELECTED':
-            return {...state, currentRecipe: action.payload}
+            return {...state, currentRecipe: action.payload, buttonValue: 1}
         case 'RECIPE_SEARCHED':
-            return {...state, lista: action.payload}
+            return {...state, lista: action.payload, buttonValue: 0}
         case 'FILTER_CHANGED':
             return {...state, filtros: action.payload}
         case 'CONTENT_CHANGED':

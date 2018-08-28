@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles'
 import { Zoom, Button } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import EditIcon from '@material-ui/icons/Edit'
-import green from '@material-ui/core/colors/green'
 
 const styles = theme => ({
     root: {
@@ -13,30 +12,30 @@ const styles = theme => ({
     },
     fab: {
       position: 'absolute',
-      bottom: theme.spacing.unit * 2,
-      right: theme.spacing.unit * 2,
+      bottom: 20,
+      right: 20,
     },
-    fabGreen: {
-      color: theme.palette.common.white,
-      backgroundColor: green[500],
+    AddColor: {
+      backgroundColor: '#B71C1C',
+      '&:hover': {
+        backgroundColor: '#C62828'
+      },
+      color: '#FAFAFA',
     },
+    EditColor: {
+      backgroundColor: '#FFC107',
+      '&:hover': {
+        backgroundColor: '#FFCA28'
+      },
+      color: '#FAFAFA'
+    }
   });
 
 class FloatingActionButton extends Component {
-    state = {
-      value: 0,
-    };
-  
-    handleChange = (event, value) => {
-      this.setState({ value });
-    };
-  
-    handleChangeIndex = index => {
-      this.setState({ value: index });
-    };
+    
   
     render() {
-      const { classes, theme } = this.props;
+      const { classes, theme, value, onClick } = this.props;
       const transitionDuration = {
         enter: theme.transitions.duration.enteringScreen,
         exit: theme.transitions.duration.leavingScreen,
@@ -44,30 +43,30 @@ class FloatingActionButton extends Component {
   
       const fabs = [
         {
-          color: 'primary',
+          color: classes.AddColor,
           className: classes.fab,
           icon: <AddIcon />,
         },
         {
-          color: 'secondary',
+          color: classes.EditColor,
           className: classes.fab,
           icon: <EditIcon />,
         }
       ]
   
       return (
-        <div className={classes.root}>
+        <div>
           {fabs.map((fab, index) => (
             <Zoom
               key={fab.color}
-              in={this.state.value === index}
+              in={value === index}
               timeout={transitionDuration}
               style={{  
-                transitionDelay: `${this.state.value === index ? transitionDuration.exit : 0}ms`,
+                transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
               }}
               unmountOnExit
             >
-              <Button variant="fab" className={fab.className} color={fab.color}>
+              <Button variant="fab" className={`${fab.className} ${fab.color}`} onClick={onClick}>
                 {fab.icon}
               </Button>
             </Zoom>
