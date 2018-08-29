@@ -1,10 +1,16 @@
 import React, {Component} from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import { Typography, Paper, Grid } from '@material-ui/core'
-import { AvTimer } from '@material-ui/icons'
+import { bindActionCreators } from 'redux'
+import { handleFilter } from '../actions/recipeActions'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { Typography, Paper, Grid, TextField, Checkbox, 
+  FormControlLabel, FormGroup, Tooltip } from '@material-ui/core'
+import { AvTimer, Person } from '@material-ui/icons'
+import { Scale } from 'mdi-material-ui'
 import MenuApp from '../common/menu'
 import Icon from '../common/icons'
+import tags from '../common/arrayTags'
 
 const styles = theme => ({
     root: {
@@ -22,45 +28,46 @@ const styles = theme => ({
     },
     titles: {
         textAlign: 'center',
-        fontWeight: 'bold',
         color: '#212121',
         [theme.breakpoints.down('sm')]: {
           fontSize: 30
         }
     },
     subtitles: {
-      fontWeight: 'bold',
       color: '#212121',
       [theme.breakpoints.down('sm')]: {
         fontSize: 20
       }
   },
     description: {
-        textAlign: 'center',
         padding: 10,
         [theme.breakpoints.down('sm')]: {
           marginLeft: 20
         }
     },
-    info: {
-      padding: 15,
-      fontWeight: 'bold'
-    }
+    colorChek: {
+      color: '#F5F5F5',
+      '&$colorChecked': {
+        color: '#B71C1C'
+      },
+    },
+    colorChecked: {}
   })
 
-const NewRecipe = props => {
+class NewRecipe extends Component {
 
-  const { classes } = props
-
+  render() {
+    const { classes, handleFilter } = this.props
+   
     return (
         <MenuApp showFilters={false} route='/' hide={true}>
             <div style={{paddingTop: 50}}>
             <Paper className={classes.root}>
+              <form autoComplete='off'>
                 <Grid container spacing={32}>
                     <Grid item md={12}>
-                    <Typography variant='display3' className={classes.titles}>
-                        Nome da receita
-                    </Typography>
+                        <Field component={TextField} margin='normal' label='Nome da Receita'
+                          id='receita' name='receita'/>
                     </Grid>
                     <Grid item md={4} sm={12} className={classes.description}>
                     <Typography variant='title' className={classes.subtitles}>
@@ -68,10 +75,12 @@ const NewRecipe = props => {
                     </Typography>
                     <div className={classes.info}>
                       <Typography variant='body2'>
-                        Porção: 0g
+                        <Field component={TextField} margin='normal' label='Porção (g)'
+                          id='porcao' name='porcao' type='number'/> <Scale/>
                       </Typography>
                       <Typography variant='body2'>
-                        Serve até: 0 Pessoas
+                        <Field component={TextField} margin='normal' label='Serve até (pessoas)'
+                          id='rendimento' name='rendimento' type='number'/> <Person/>
                       </Typography>
                     </div>
                     </Grid>
@@ -80,15 +89,29 @@ const NewRecipe = props => {
                         Tempo de Preparo
                     </Typography>
                     <Typography variant='body2' className={classes.info}>
-                      <AvTimer/> 0 min
-                    </Typography>
+                      <Field component={TextField} margin='normal' label='Minutos'
+                          id='tempo' name='tempo' type='number'/> <AvTimer/> 
+                    </Typography> 
                     </Grid>
                     <Grid item md={4} sm={12} className={classes.description}>
                     <Typography variant='title' className={classes.subtitles}>
                         Características
                     </Typography>
                       <div className={classes.info}>
-                        select tags
+                        <FormGroup row>
+                          {tags.map(tag => {
+                            return <Tooltip title={tag}>
+                              <FormControlLabel
+                              control={
+                                <Checkbox value={tag} onChange={handleFilter}
+                                  classes={{checked: classes.colorChecked,
+                                    check: classes.colorCheck}}/>
+                              }
+                              label={<Icon icone={tag}/>}
+                              />
+                            </Tooltip>
+                          })}
+                        </FormGroup>
                       </div>
                     </Grid>
                     <Grid item md={12}>
@@ -104,10 +127,16 @@ const NewRecipe = props => {
                       Teste
                     </Grid>
                 </Grid>
+                </form>
             </Paper>
             </div>
         </MenuApp>
     )
+  }
+
+
 }
 
-export default withStyles(styles)(NewRecipe)
+NewRecipe = reduxForm({form: 'newRecipe', destroyOnUnmount: false})(NewRecipe)
+const mapDispatchToProps = dispatch => bindActionCreators({handleFilter}, dispatch)
+export default withStyles(styles)(connect(null, mapDispatchToProps)(NewRecipe))

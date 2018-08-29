@@ -23,14 +23,12 @@ const styles = theme => ({
     },
     titles: {
         textAlign: 'center',
-        fontWeight: 'bold',
         color: '#212121',
         [theme.breakpoints.down('sm')]: {
           fontSize: 30
         }
     },
     subtitles: {
-      fontWeight: 'bold',
       color: '#212121',
       [theme.breakpoints.down('sm')]: {
         fontSize: 20
@@ -45,7 +43,6 @@ const styles = theme => ({
     },
     info: {
       padding: 15,
-      fontWeight: 'bold'
     }
   })
 

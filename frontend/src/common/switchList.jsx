@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography, List, ListItem, ListItemIcon, 
     ListItemText, Switch } from '@material-ui/core'
 import Icon from './icons'
+import tags from './arrayTags'
 
 const styles = theme => ({
     root: {
@@ -27,8 +28,7 @@ const styles = theme => ({
 
 class SwitchList extends Component {
     renderList() {
-        const tags = ["Favoritas", "Rapidas", "Quentes", "Frias", "Carnes", "Massas", "Frutos do Mar",
-        "Acompanhamentos", "Sopas", "Vegetarianas", "Veganas", "Low Carb", "Bebidas", "Sobremesas"]
+        
 
         const { classes, onChange } = this.props
 
