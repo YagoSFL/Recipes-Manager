@@ -18,10 +18,10 @@ class Recipes extends Component {
 
         return (
             <Fragment>
-                <If teste={visible.Lista}>
+                <If teste={visible === 'default'}>
                     <Lista />
                 </If>
-                <If teste={visible.Receita}>
+                <If teste={visible === 'Receita'}>
                     <View />
                 </If>
             </Fragment>

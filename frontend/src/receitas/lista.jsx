@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { selectRecipe } from '../actions/recipeActions'
+import { selectRecipe, contentToShow, init } from '../actions/recipeActions'
 import { withStyles } from '@material-ui/core/styles'
 import { MenuList, MenuItem, ListItemText, Paper, Avatar } from '@material-ui/core'
 import LocalDining from '@material-ui/icons/LocalDining'
 import Icon from  '../common/icons'
 
-import MenuApp from '../common/menu'
+import MenuApp from '../common/menu/menu'
 
 const styles = theme => ({
   root: {
@@ -21,16 +21,15 @@ const styles = theme => ({
 
 const RecipesList = props => {
       
-      const { classes, tabValue, lista, selectRecipe } = props
+      const { classes, tabValue, lista, selectRecipe, init} = props
       const salgada = receita => receita.tipo  === 'Salgada'
       const doce = receita => receita.tipo === 'Doce'
       const recipes = tabValue === 0 ? lista.filter(salgada) : lista.filter(doce)
   
       return (
-        <MenuApp showFilters={true} route='/Cadastro'>
+        <MenuApp showFilters={true} route='/Cadastro' clickAction={() => init()}>
           <div style={{paddingTop: 80}}>
         <Paper className={classes.root}>
-  
                 {recipes.map(r => {
                   let categorias = r.tags.map(t => (
                     <i key={t}><Icon icone={t}/> {t}</i>
@@ -54,5 +53,5 @@ const RecipesList = props => {
 }
 
 const mapStateToProps = state => ({lista: state.recipe.lista, tabValue: state.menu.tabValue})
-const mapDispatchToProps = dispatch => bindActionCreators({ selectRecipe }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ selectRecipe, contentToShow, init }, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(RecipesList))

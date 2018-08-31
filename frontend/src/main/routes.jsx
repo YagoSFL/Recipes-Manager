@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router' 
 
 import Recipes from './recipes'
-import Cadastro from '../receitas/cadastro'
+import Cadastro from './cadastro'
 
 export default props => 
     <Switch>

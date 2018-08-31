@@ -1,6 +1,8 @@
 import axios from 'axios'
+import { initialize } from 'redux-form'
 
 const URL = 'http://localhost:4444/api/recipes'
+const INITIAL_VALUES = {}
 
 export const showData = () => {
     return (dispatch, getState) => {
@@ -11,7 +13,7 @@ export const showData = () => {
         const search = result ? `?tags__regex=/${result}/` : ''
         axios.get(URL + search)
             .then(resp => dispatch({type: 'RECIPE_SEARCHED', payload: resp.data}))
-            .then(dispatch(contentToShow('Lista')))
+            .then(dispatch(contentToShow('default')))
     }
 
 
@@ -41,10 +43,27 @@ export const selectRecipe = (recipe) => {
     }
 }
 
+export const editRecipe = (recipe) => {
+    return [initialize('newRecipe', recipe),
+            contentToShow('Editar'),
+        console.log(recipe)]
+}
+
 export const contentToShow = (show) => {
-    let content = Object.assign({},{[show]: true})   
+/*     let content = Object.assign({},{[show]: true})  */  
     return {
         type: 'CONTENT_CHANGED',
-        payload: content
+        payload: show
     }
+}
+
+export const createRecipe = (values) => {
+    return console.log(values)
+}
+
+export const init = () => {
+    return [
+        contentToShow('default'),
+        initialize('newRecipe', INITIAL_VALUES)
+    ]
 }

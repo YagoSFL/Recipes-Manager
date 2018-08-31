@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { handleChangeTab } from '../actions/menuActions'
-import { handleFilter, showData } from  '../actions/recipeActions'
+import { handleChangeTab } from '../../actions/menuActions'
+import { handleFilter, showData } from  '../../actions/recipeActions'
 import SwitchList from './switchList'
 import MenuBar from './menuBar'
-import If from './if'
+import If from '../if'
 import { Typography, Hidden, Drawer, Divider, CssBaseline,
      ListItemIcon, MenuList, MenuItem } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { Home, Receipt } from '@material-ui/icons'
-import FloatingButton from './actionButton'
+import FloatingButton from '../actionButton'
 import { Link } from 'react-router-dom'
 
 const drawerWidth = 330

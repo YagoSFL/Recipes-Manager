@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import If from './if'
+import If from '../if'
 import {
     AppBar, Toolbar, IconButton, Typography, 
     Tab, Tabs } from '@material-ui/core'

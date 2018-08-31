@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, List, ListItem, ListItemIcon, 
     ListItemText, Switch } from '@material-ui/core'
-import Icon from './icons'
-import tags from './arrayTags'
+import Icon from '../icons'
+import tags from '../arrayTags'
 
 const styles = theme => ({
     root: {
@@ -33,7 +33,7 @@ class SwitchList extends Component {
         const { classes, onChange } = this.props
 
         return tags.map((tag, index)=> (
-            <ListItem button key={index}>
+            <ListItem key={index}>
                 <ListItemIcon className={classes.icon}><Icon icone={tag}/></ListItemIcon>
                 <ListItemText primary={tag} />
                 <Switch classes={{switchBase: classes.colorSwitchBase,
