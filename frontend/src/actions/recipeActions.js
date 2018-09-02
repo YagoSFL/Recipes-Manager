@@ -19,8 +19,7 @@ export const showData = () => {
 
 }
 
-export const handleFilter = event => {
-        
+export const handleFilter = event => {       
     return (dispatch, getState) => {
         let tags = getState().recipe.filtros
         let filtro = Object.assign({...tags},{[event.currentTarget.value]: event.currentTarget.checked})  
@@ -49,8 +48,7 @@ export const editRecipe = (recipe) => {
         console.log(recipe)]
 }
 
-export const contentToShow = (show) => {
-/*     let content = Object.assign({},{[show]: true})  */  
+export const contentToShow = (show) => { 
     return {
         type: 'CONTENT_CHANGED',
         payload: show
@@ -58,9 +56,19 @@ export const contentToShow = (show) => {
 }
 
 export const createRecipe = (values) => {
-    return console.log(values)
+    return submit(values, 'post')
 }
 
+/* const submit = (values, method) => {
+    return dispatch => {
+        const id = values._id ? values._id : ''
+        axios[method](`${URL}/${id}`, values)
+        .then(resp => {
+            toastr.success('Sucesso', 'Cadastro realizado com sucesso!')
+        })
+    }
+}
+ */
 export const init = () => {
     return [
         contentToShow('default'),

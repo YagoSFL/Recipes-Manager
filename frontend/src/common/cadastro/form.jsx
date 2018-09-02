@@ -55,7 +55,6 @@ const styles = theme => ({
       padding: 20
     },
     check: {
-      paddingTop: 16,
       color: '#9E9E9E',
       '&$checked': {
         color: '#B71C1C',
@@ -82,9 +81,11 @@ const styles = theme => ({
       <Tooltip key={i} title={tag}>
         <Checkbox
           name={`${name}[${i}]`}
+          defaultChecked={input.value.indexOf(tag) !== -1}
+          checked={input.value.indexOf(tag) !== -1}
           icon={<Icon icone={tag}/>}
           checkedIcon={<Icon icone={tag}/>}
-          onChange={(e, checked) => {
+          onChange={(checked) => {
             let newValue = [...input.value];
             if (checked){
               newValue.push(tag);
@@ -109,6 +110,7 @@ const styles = theme => ({
       {...input}
       {...rest}
       selected={input.value}
+      defaultChecked={input.value}
       onChange={(event, value) => input.onChange(value)}
     />
   )
@@ -116,7 +118,6 @@ class NewRecipe extends Component {
 
   render() {
     const { classes, handleSubmit, init } = this.props
-
     return (
         <MenuApp showFilters={false} route='/' hide={true}>
             <div style={{paddingTop: 50}}>
@@ -131,11 +132,11 @@ class NewRecipe extends Component {
                           Tipo
                         </Typography>
                         <Field component={renderRadioGroup} name='tipo' className={classes.type}>
-                          <FormControlLabel value="doce" control={<Radio classes={{
+                          <FormControlLabel value="Doce" control={<Radio classes={{
                           root: classes.check,
                           checked: classes.checked,
                         }}/>} label="Doce" />
-                          <FormControlLabel value="salgada" control={<Radio classes={{
+                          <FormControlLabel value="Salgada" control={<Radio classes={{
                           root: classes.check,
                           checked: classes.checked,
                         }}/>} label="Salgada" />
