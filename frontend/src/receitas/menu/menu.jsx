@@ -5,12 +5,12 @@ import { handleChangeTab } from '../../actions/menuActions'
 import { handleFilter, showData } from  '../../actions/recipeActions'
 import SwitchList from './switchList'
 import MenuBar from './menuBar'
-import If from '../if'
+import If from '../../common/if'
 import { Typography, Hidden, Drawer, Divider, CssBaseline,
      ListItemIcon, MenuList, MenuItem } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { Home, Receipt } from '@material-ui/icons'
-import FloatingButton from '../actionButton'
+import FloatingButton from './actionButton'
 import { Link } from 'react-router-dom'
 
 const drawerWidth = 330
@@ -55,7 +55,7 @@ class MenuApp extends Component {
 
     render(){
         const { classes, children, handleChangeTab, handleFilter, showData, 
-                tabValue, showFilters, route , buttonValue, clickAction, hide } = this.props;
+                tabValue, showFilters, buttonValue, clickAction, hide } = this.props;
         const { mobileOpen } = this.state
         const drawer = (
         <div>
@@ -119,9 +119,7 @@ class MenuApp extends Component {
                         <div className={classes.content}>
                             {children}
                             <If teste={!hide}>
-                            <Link to={route} onClick={clickAction}>
-                                <FloatingButton value={buttonValue}/>
-                            </Link>
+                                <FloatingButton onClick={clickAction} value={buttonValue}/>
                             </If>
                         </div>
                     </div>

@@ -6,7 +6,7 @@ import { editRecipe } from '../actions/recipeActions'
 import { Typography, Paper, Grid, Tooltip, List, ListItem, ListItemText } from '@material-ui/core'
 import { AvTimer } from '@material-ui/icons'
 import { normalize, schema } from 'normalizr'
-import MenuApp from '../common/menu/menu'
+import MenuApp from './menu/menu'
 import Icon from '../common/icons'
 
 const styles = theme => ({
@@ -109,7 +109,7 @@ const RecipeView = props => {
     )) : []
   
     return (
-        <MenuApp showFilters={false} route='/Cadastro' clickAction={() => editRecipe(normalizedData.result)}>
+        <MenuApp showFilters={false} clickAction={() => editRecipe(normalizedData.result)}>
             <div style={{paddingTop: 50}}>
             <Paper className={classes.root}>
                 <Grid container spacing={32}>

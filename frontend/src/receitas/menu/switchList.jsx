@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, List, ListItem, ListItemIcon, 
     ListItemText, Switch } from '@material-ui/core'
-import Icon from '../icons'
-import tags from '../arrayTags'
+import Icon from '../../common/icons'
+import tags from '../../common/arrayTags'
 
 const styles = theme => ({
     root: {

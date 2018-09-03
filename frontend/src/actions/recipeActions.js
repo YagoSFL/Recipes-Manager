@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { initialize } from 'redux-form'
+import { toastr } from 'react-redux-toastr'
 
 const URL = 'http://localhost:4444/api/recipes'
 const INITIAL_VALUES = {}
@@ -44,8 +45,14 @@ export const selectRecipe = (recipe) => {
 
 export const editRecipe = (recipe) => {
     return [initialize('newRecipe', recipe),
-            contentToShow('Editar'),
-        console.log(recipe)]
+            contentToShow('Editar')]
+}
+
+export const initForm = () => {
+    return [
+        initialize('newRecipe', INITIAL_VALUES),
+        contentToShow('Cadastrar')
+    ]
 }
 
 export const contentToShow = (show) => { 
@@ -56,22 +63,36 @@ export const contentToShow = (show) => {
 }
 
 export const createRecipe = (values) => {
-    return submit(values, 'post')
+    return submit(values, 'post', 'Receita cadastrada com sucesso!')
 }
 
-/* const submit = (values, method) => {
+/* export const editRecipe = (values) => {
+    return submit(values, 'put')
+} */
+
+export const removeRecipe = (values) => {
+    return submit(values, 'delete', 'Receita removida com sucesso!')
+}
+
+const submit = (values, method, msg) => {
     return dispatch => {
         const id = values._id ? values._id : ''
         axios[method](`${URL}/${id}`, values)
         .then(resp => {
-            toastr.success('Sucesso', 'Cadastro realizado com sucesso!')
+            toastr.success('Sucesso', msg)
+            dispatch(contentToShow('default'))
+            dispatch(showData())
+        })
+        .catch(e => {
+            e.response.data.errors.forEach(error => toastr.error('Erro', error))
         })
     }
 }
- */
+
 export const init = () => {
     return [
+        initialize('newRecipe', INITIAL_VALUES),
         contentToShow('default'),
-        initialize('newRecipe', INITIAL_VALUES)
+        showData()
     ]
 }

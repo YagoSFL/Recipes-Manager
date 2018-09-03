@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import If from '../if'
-import {
-    AppBar, Toolbar, IconButton, Typography, 
+import If from '../../common/if'
+import { AppBar, Toolbar, IconButton, Typography, 
     Tab, Tabs } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import {Menu} from '@material-ui/icons'
+import { Menu } from '@material-ui/icons'
 import { Nutrition  } from 'mdi-material-ui'
 
 const drawerWidth = 330

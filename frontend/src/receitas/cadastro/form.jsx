@@ -11,8 +11,8 @@ import { Scale } from 'mdi-material-ui'
 import MenuApp from '../menu/menu'
 import ItemField from './itemField'
 import ProcessItem from './processItem'
-import Icon from '../icons'
-import tags from '../arrayTags'
+import Icon from '../../common/icons'
+import tags from '../../common/arrayTags'
 
 const styles = theme => ({
     root: {

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Field, arrayInsert, arrayRemove } from 'redux-form'
 import { TextField, Button, Zoom, Grid } from '@material-ui/core'
 import {Delete, Add} from '@material-ui/icons'
-import If from '../if'
+import If from '../../common/if'
 
 const styles = theme => ({
     AddColor: {
