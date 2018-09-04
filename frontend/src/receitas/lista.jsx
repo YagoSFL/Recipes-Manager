@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { selectRecipe, contentToShow, initForm, removeRecipe } from '../actions/recipeActions'
 import { withStyles } from '@material-ui/core/styles'
-import { MenuList, MenuItem, ListItemText, Paper, Avatar,
+import { MenuList, MenuItem, ListItemText, Paper, Avatar, Grow,
   ListItemSecondaryAction, IconButton, Dialog, DialogActions,
   DialogContent, DialogContentText, DialogTitle, Button } from '@material-ui/core'
 import LocalDining from '@material-ui/icons/LocalDining'
@@ -54,6 +54,7 @@ class RecipesList extends Component {
 
     return (
       <MenuApp showFilters={true} clickAction={() => initForm()}>
+      <Grow in={ lista !== [] } >
         <div style={{paddingTop: 80}}>
       <Paper className={classes.root}>
               {recipes.map(r => {
@@ -79,10 +80,12 @@ class RecipesList extends Component {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                       >
-                        <DialogTitle id="alert-dialog-title">{"Alerta!"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title" className={classes.dialogText}>
+                          Deseja realmente remover esta receita?
+                        </DialogTitle>
                         <DialogContent>
                           <DialogContentText id="alert-dialog-description">
-                            Deseja realmente remover esta receita?
+                            Depois de apagada seu conteúdo não poder recuperado.
                           </DialogContentText>
                         </DialogContent>
                         <DialogActions>
@@ -99,8 +102,8 @@ class RecipesList extends Component {
               })}
         
       </Paper>
-      
       </div>
+      </Grow>
       </MenuApp>
     )
   }

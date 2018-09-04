@@ -3,7 +3,7 @@ import { initialize } from 'redux-form'
 import { toastr } from 'react-redux-toastr'
 
 const URL = 'http://localhost:4444/api/recipes'
-const INITIAL_VALUES = {}
+const INITIAL_VALUES = { ingredientes: [{}], procedimentos: [{}] }
 
 export const showData = () => {
     return (dispatch, getState) => {
@@ -43,7 +43,7 @@ export const selectRecipe = (recipe) => {
     }
 }
 
-export const editRecipe = (recipe) => {
+export const formEditRecipe = (recipe) => {
     return [initialize('newRecipe', recipe),
             contentToShow('Editar')]
 }
@@ -66,9 +66,9 @@ export const createRecipe = (values) => {
     return submit(values, 'post', 'Receita cadastrada com sucesso!')
 }
 
-/* export const editRecipe = (values) => {
-    return submit(values, 'put')
-} */
+export const editRecipe = (values) => {
+    return submit(values, 'put', 'Receita alterada com sucesso!')
+}
 
 export const removeRecipe = (values) => {
     return submit(values, 'delete', 'Receita removida com sucesso!')

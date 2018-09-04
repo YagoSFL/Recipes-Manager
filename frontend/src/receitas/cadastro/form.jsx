@@ -4,30 +4,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { init } from '../../actions/recipeActions'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
-import { Typography, Paper, Grid, TextField, Button, Checkbox, Tooltip,
+import { Typography, Grid, TextField, Button, Checkbox, Tooltip,
   Radio, RadioGroup, FormControlLabel } from '@material-ui/core'
 import { AvTimer, Person } from '@material-ui/icons'
 import { Scale } from 'mdi-material-ui'
-import MenuApp from '../menu/menu'
 import ItemField from './itemField'
 import ProcessItem from './processItem'
 import Icon from '../../common/icons'
 import tags from '../../common/arrayTags'
 
 const styles = theme => ({
-    root: {
-      width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      padding: 30,
-      paddingLeft: 100,
-      paddingRight: 100,
-      color: '#212121',
-      [theme.breakpoints.down('sm')]: {
-        padding: 10,
-        paddingLeft: 50,
-        paddingRight: 30,
-      }
-    },
     titles: {
         textAlign: 'center',
         color: '#212121',
@@ -117,96 +103,89 @@ const styles = theme => ({
 class NewRecipe extends Component {
 
   render() {
-    const { classes, handleSubmit, init } = this.props
+    const { classes, handleSubmit, init, processos, ingredientes, procedimentos } = this.props
     return (
-        <MenuApp showFilters={false} route='/' hide={true}>
-            <div style={{paddingTop: 50}}>
-            <Paper className={classes.root}>
-              <form autoComplete='off' onSubmit={handleSubmit}>
-                <Grid container spacing={24}>
-                    <Grid item md={8}>
-                        <Field component={renderTextField} label='Nome da Receita' name='nome'/>
-                    </Grid>
-                    <Grid item md={4}>
-                        <Typography variant='title' className={classes.subtitles}>
-                          Tipo
-                        </Typography>
-                        <Field component={renderRadioGroup} name='tipo' className={classes.type}>
-                          <FormControlLabel value="Doce" control={<Radio classes={{
-                          root: classes.check,
-                          checked: classes.checked,
-                        }}/>} label="Doce" />
-                          <FormControlLabel value="Salgada" control={<Radio classes={{
-                          root: classes.check,
-                          checked: classes.checked,
-                        }}/>} label="Salgada" />
-                        </Field>
-                    </Grid>  
-                    <Grid item md={4} sm={12} className={classes.description}>
-                    <Typography variant='title' className={classes.subtitles}>
-                        Rendimento
-                    </Typography>
-                    <div>
-                      <Typography variant='body2'>
-                        <Field component={renderTextField} margin='normal' label='Porção (g)'
-                          id='porcao' name='porcao' type='number'/> <Scale/>
-                      </Typography>
-                      <Typography variant='body2'>
-                        <Field component={renderTextField} margin='normal' label='Serve até (pessoas)'
-                          id='rendimento' name='rendimento' type='number'/> <Person/>
-                      </Typography>
-                    </div>
-                    </Grid>
-                    <Grid item md={4} sm={12} className={classes.description}>
-                    <Typography variant='title' className={classes.subtitles}>
-                        Tempo de Preparo
-                    </Typography>
-                    <Typography variant='body2'>
-                      <Field component={renderTextField} margin='normal' label='Minutos'
-                          id='tempo' name='tempo' type='number'/> <AvTimer/> 
-                    </Typography> 
-                    </Grid>
-                    <Grid item md={4} sm={12} className={classes.description}>
-                      <Typography variant='title' className={classes.subtitles}>
-                          Características
-                      </Typography>
-                      <Field
-                        name="tags"
-                        component={renderCheckboxGroup}
-                        options={tags}
-                        classes={{
-                          root: classes.check,
-                          checked: classes.checked,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={12}>
-                    <Typography variant='display2' className={classes.titles}>
-                        Ingredientes
-                    </Typography>
-                    <ProcessItem>
-                      <ItemField/>
-                    </ProcessItem>
-                    </Grid>
-                    <Grid item md={12} className={classes.footer}>
-                      <Button variant='contained' className={classes.submit}
-                        type='submit'
-                      >Cadastrar</Button>
-                      <Button variant='contained' className={classes.submit}
-                        onClick={init}
-                      >Cancelar</Button>
-                    </Grid>
-                </Grid>
-              </form>              
-            </Paper>
+      <form autoComplete='off' onSubmit={handleSubmit}>
+        <Grid container spacing={24}>
+            <Grid item md={8}>
+                <Field component={renderTextField} label='Nome da Receita' name='nome'/>
+            </Grid>
+            <Grid item md={4}>
+                <Typography variant='title' className={classes.subtitles}>
+                  Tipo
+                </Typography>
+                <Field component={renderRadioGroup} name='tipo' className={classes.type}>
+                  <FormControlLabel value="Doce" control={<Radio classes={{
+                  root: classes.check,
+                  checked: classes.checked,
+                }}/>} label="Doce" />
+                  <FormControlLabel value="Salgada" control={<Radio classes={{
+                  root: classes.check,
+                  checked: classes.checked,
+                }}/>} label="Salgada" />
+                </Field>
+            </Grid>  
+            <Grid item md={4} sm={12} className={classes.description}>
+            <Typography variant='title' className={classes.subtitles}>
+                Rendimento
+            </Typography>
+            <div>
+              <Typography variant='body2'>
+                <Field component={renderTextField} margin='normal' label='Porção (g)'
+                  id='porcao' name='porcao' type='number'/> <Scale/>
+              </Typography>
+              <Typography variant='body2'>
+                <Field component={renderTextField} margin='normal' label='Serve até (pessoas)'
+                  id='rendimento' name='rendimento' type='number'/> <Person/>
+              </Typography>
             </div>
-        </MenuApp>
+            </Grid>
+            <Grid item md={4} sm={12} className={classes.description}>
+            <Typography variant='title' className={classes.subtitles}>
+                Tempo de Preparo
+            </Typography>
+            <Typography variant='body2'>
+              <Field component={renderTextField} margin='normal' label='Minutos'
+                  id='tempo' name='tempo' type='number'/> <AvTimer/> 
+            </Typography> 
+            </Grid>
+            <Grid item md={4} sm={12} className={classes.description}>
+              <Typography variant='title' className={classes.subtitles}>
+                  Características
+              </Typography>
+              <Field
+                name="tags"
+                component={renderCheckboxGroup}
+                options={tags}
+                classes={{
+                  root: classes.check,
+                  checked: classes.checked,
+                }}
+              />
+            </Grid>
+            <Grid item md={12}>
+            <Typography variant='display2' className={classes.titles}>
+                Ingredientes
+            </Typography>
+            <ProcessItem processo={processos}/>
+            </Grid>
+            <Grid item md={12} className={classes.footer}>
+              <Button variant='contained' className={classes.submit}
+                type='submit'>Cadastrar</Button>
+              <Button variant='contained' className={classes.submit}
+                onClick={init}>Cancelar</Button>
+            </Grid>
+        </Grid>
+      </form>              
     )
   }
 
 
 }
 NewRecipe = reduxForm({form: 'newRecipe', destroyOnUnmount: false})(NewRecipe)
-/* const selector = formValueSelector('newRecipe') */
+const selector = formValueSelector('newRecipe')
+const mapStateToProps = state => ({
+  processos: selector(state, 'processos')
+})
 const mapDispatchToProps = dispatch => bindActionCreators({ init }, dispatch)
-export default withStyles(styles)(connect(null, mapDispatchToProps)(NewRecipe))
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(NewRecipe))

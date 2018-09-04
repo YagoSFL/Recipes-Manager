@@ -7,7 +7,7 @@ import SwitchList from './switchList'
 import MenuBar from './menuBar'
 import If from '../../common/if'
 import { Typography, Hidden, Drawer, Divider, CssBaseline,
-     ListItemIcon, MenuList, MenuItem } from '@material-ui/core'
+     ListItemIcon, MenuList, MenuItem, Grow } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { Home, Receipt } from '@material-ui/icons'
 import FloatingButton from './actionButton'
@@ -79,7 +79,9 @@ class MenuApp extends Component {
             </MenuList>
             <Divider />
             <If teste={showFilters}>
-                <SwitchList onChange={handleFilter}/>
+                <Grow in={showFilters} timeout={500}>
+                    <SwitchList onChange={handleFilter}/>
+                </Grow>
             </If>
         </div>
     );

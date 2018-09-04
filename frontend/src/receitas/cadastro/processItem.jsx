@@ -35,14 +35,25 @@ const renderTextField = ({
 
 class ProcessItem extends Component {
 
-
     renderProcess() {
-        return <div>
-            <Field component={renderTextField} name='procedimentos[0].etapa' id='etapa' label='Processo'/>
+      const procs = this.props.processo || []
+        return procs.map((procN, procI) => (
+          <div key={procI}>
+            <Field component={renderTextField} name={`processos[${procI}].etapa`} id='etapa' label='Processo'/>
             <Button variant='fab' mini ><Add/></Button>
             <Button variant='fab' mini ><Delete/></Button>
-            {this.props.children}
-        </div>
+            {
+              procN.ingredientes.map((ingr, ingrI) => (
+                <div key={ingrI}>
+                <Field component={renderTextField} name={`processos[${procI}].ingredientes[${ingrI}].qtd`} label='Qtd'/>
+                <Field component={renderTextField} name={`processos[${procI}].ingredientes[${ingrI}].nome`} label='Ingrediente'/>
+                <Button variant='fab' mini ><Add/></Button>
+                <Button variant='fab' mini ><Delete/></Button>
+                </div>
+              ))
+            }
+          </div>
+        ))
 
     }
     

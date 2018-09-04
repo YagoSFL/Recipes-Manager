@@ -36,14 +36,17 @@ const renderTextField = ({
 
 class ItemField extends Component {
 
-
     renderFields() {
-        return <div>
-            <Field component={renderTextField} name='qtd' id='qtd' label='Qtd'/>
-            <Field component={renderTextField} name='ingrediente' id='ingrediente' label='Ingrediente'/>
-            <Button variant='fab' mini ><Add/></Button>
-            <Button variant='fab' mini ><Delete/></Button>
-        </div>
+      const ingred = this.props.ingredientes || []
+      //console.log(ingred)
+      return ingred.map((item, index) => (
+        <div key={index}>
+          <Field component={renderTextField} name={`ingredientes[0].ingrList[${index}].qtd`} label='Qtd'/>
+          <Field component={renderTextField} name={`ingredientes[0].ingrList[${index}].nome`} label='Ingrediente'/>
+          <Button variant='fab' mini ><Add/></Button>
+          <Button variant='fab' mini ><Delete/></Button>
+      </div>
+      ))
 
     }
     

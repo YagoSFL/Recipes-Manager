@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import If from '../../common/if'
 import { AppBar, Toolbar, IconButton, Typography, 
-    Tab, Tabs } from '@material-ui/core'
+    Tab, Tabs, Collapse } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import { Menu } from '@material-ui/icons'
 import { Nutrition  } from 'mdi-material-ui'
@@ -72,6 +72,7 @@ class MenuBar extends Component {
                     </Typography>
                 </Toolbar>
                 <If teste={showFilters}>
+                <Collapse in={showFilters} timeout={200}>
                 <div position='static' className={classes.tabBar}>
                     <Tabs
                         value={tabValue}
@@ -88,6 +89,7 @@ class MenuBar extends Component {
                         />
                     </Tabs>
                 </div>
+                </Collapse>
                 </If>
             </AppBar>
         )
