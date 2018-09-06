@@ -103,7 +103,8 @@ const styles = theme => ({
 class NewRecipe extends Component {
 
   render() {
-    const { classes, handleSubmit, init, processos, ingredientes, procedimentos } = this.props
+    const { classes, handleSubmit, init, processos, ingredientes } = this.props
+    console.log(ingredientes)
     return (
       <form autoComplete='off' onSubmit={handleSubmit}>
         <Grid container spacing={24}>
@@ -167,7 +168,7 @@ class NewRecipe extends Component {
             <Typography variant='display2' className={classes.titles}>
                 Ingredientes
             </Typography>
-            <ProcessItem processo={processos}/>
+            <ProcessItem processo={processos} field='ingredientes' input={'Ingrediente'}/>
             </Grid>
             <Grid item md={12} className={classes.footer}>
               <Button variant='contained' className={classes.submit}
@@ -180,12 +181,12 @@ class NewRecipe extends Component {
     )
   }
 
-
 }
 NewRecipe = reduxForm({form: 'newRecipe', destroyOnUnmount: false})(NewRecipe)
 const selector = formValueSelector('newRecipe')
 const mapStateToProps = state => ({
-  processos: selector(state, 'processos')
+  processos: selector(state, 'processos'),
+  ingredientes: selector(state, 'ingredientes')
 })
 const mapDispatchToProps = dispatch => bindActionCreators({ init }, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(NewRecipe))

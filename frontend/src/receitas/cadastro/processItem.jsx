@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux'
 import { Field, arrayInsert, arrayRemove } from 'redux-form'
 import { TextField, Button, Zoom, Grid } from '@material-ui/core'
 import {Delete, Add} from '@material-ui/icons'
+import ItemField from './itemField'
+import If from '../../common/if'
 
 const styles = theme => ({
     AddColor: {
@@ -35,35 +37,33 @@ const renderTextField = ({
 
 class ProcessItem extends Component {
 
-    renderProcess() {
-      const procs = this.props.processo || []
-        return procs.map((procN, procI) => (
-          <div key={procI}>
-            <Field component={renderTextField} name={`processos[${procI}].etapa`} id='etapa' label='Processo'/>
-            <Button variant='fab' mini ><Add/></Button>
-            <Button variant='fab' mini ><Delete/></Button>
-            {
-              procN.ingredientes.map((ingr, ingrI) => (
-                <div key={ingrI}>
-                <Field component={renderTextField} name={`processos[${procI}].ingredientes[${ingrI}].qtd`} label='Qtd'/>
-                <Field component={renderTextField} name={`processos[${procI}].ingredientes[${ingrI}].nome`} label='Ingrediente'/>
-                <Button variant='fab' mini ><Add/></Button>
-                <Button variant='fab' mini ><Delete/></Button>
-                </div>
-              ))
-            }
-          </div>
-        ))
-
+    add(index, item = {} ){
+      this.props.arrayInsert('newRecipe', 'processos', index, item)
     }
-    
+
+    remove(index) {
+      this.props.arrayRemove('newRecipe', 'processos', index)
+    }
+
+    renderProcessField() {
+      const { classes, processo } = this.props
+      const list = processo || []
+      return list.map((item, index) => (
+        <div key={index}>
+          <Field component={renderTextField} name={`processos[${index}].etapa`} label='Processo'/>
+          <Button variant='fab' mini className={classes.AddColor} onClick={() => this.add(index + 1)}><Add/></Button>
+          <Button variant='fab' mini onClick={() => this.remove(index)}><Delete/></Button>
+        </div>
+      ))
+    }
+
     render() {
         return <div>
-            {this.renderProcess()}
+          {this.renderProcessField()}
         </div>
     }
 }
 
-
-export default withStyles(styles)(ProcessItem)
+const mapDispatchToProps = dispatch => bindActionCreators({arrayInsert, arrayRemove}, dispatch)
+export default withStyles(styles)(connect(null, mapDispatchToProps)(ProcessItem))
 

@@ -3,7 +3,7 @@ import { initialize } from 'redux-form'
 import { toastr } from 'react-redux-toastr'
 
 const URL = 'http://localhost:4444/api/recipes'
-const INITIAL_VALUES = { ingredientes: [{}], procedimentos: [{}] }
+const INITIAL_VALUES = { processos: [{ ingredientes: [{}], preparos: [{}] }] }
 
 export const showData = () => {
     return (dispatch, getState) => {

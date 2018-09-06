@@ -69,7 +69,7 @@ const RecipeView = props => {
                 p.ingredientes.map(li => (
                   <ListItem key={li._id}>
                     <Typography variant='body2'>
-                        <ListItemText>{li.qtd} - {li.nome}</ListItemText>
+                        <ListItemText>{li.qtd} - {li.desc}</ListItemText>
                     </Typography>
                   </ListItem>
                 ))
@@ -92,7 +92,7 @@ const RecipeView = props => {
                   return (
                     <ListItem key={li._id}>
                       <Typography variant='body2'>
-                          <ListItemText>{cont}. {li.descricao}</ListItemText>
+                          <ListItemText>{cont}. {li.desc}</ListItemText>
                       </Typography>
                     </ListItem>
                   )
