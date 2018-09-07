@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Field, arrayInsert, arrayRemove } from 'redux-form'
-import { TextField, Button, Zoom, Grid } from '@material-ui/core'
+import { TextField, Button, List, ListItem, Zoom, Grid } from '@material-ui/core'
 import {Delete, Add} from '@material-ui/icons'
 import ItemField from './itemField'
 import If from '../../common/if'
@@ -49,18 +49,18 @@ class ProcessItem extends Component {
       const { classes, processo } = this.props
       const list = processo || []
       return list.map((item, index) => (
-        <div key={index}>
+        <ListItem key={index}>
           <Field component={renderTextField} name={`processos[${index}].etapa`} label='Processo'/>
           <Button variant='fab' mini className={classes.AddColor} onClick={() => this.add(index + 1)}><Add/></Button>
           <Button variant='fab' mini onClick={() => this.remove(index)}><Delete/></Button>
-        </div>
+        </ListItem>
       ))
     }
 
     render() {
-        return <div>
+        return <List>
           {this.renderProcessField()}
-        </div>
+        </List>
     }
 }
 

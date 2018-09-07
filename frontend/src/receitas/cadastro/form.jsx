@@ -8,7 +8,7 @@ import { Typography, Grid, TextField, Button, Checkbox, Tooltip,
   Radio, RadioGroup, FormControlLabel } from '@material-ui/core'
 import { AvTimer, Person } from '@material-ui/icons'
 import { Scale } from 'mdi-material-ui'
-import ItemField from './itemField'
+import ItemFields from './itemField'
 import ProcessItem from './processItem'
 import Icon from '../../common/icons'
 import tags from '../../common/arrayTags'
@@ -103,8 +103,8 @@ const styles = theme => ({
 class NewRecipe extends Component {
 
   render() {
-    const { classes, handleSubmit, init, processos, ingredientes } = this.props
-    console.log(ingredientes)
+    const { classes, handleSubmit, init, processos } = this.props
+
     return (
       <form autoComplete='off' onSubmit={handleSubmit}>
         <Grid container spacing={24}>
@@ -168,7 +168,7 @@ class NewRecipe extends Component {
             <Typography variant='display2' className={classes.titles}>
                 Ingredientes
             </Typography>
-            <ProcessItem processo={processos} field='ingredientes' input={'Ingrediente'}/>
+            <ProcessItem processo={processos}/>          
             </Grid>
             <Grid item md={12} className={classes.footer}>
               <Button variant='contained' className={classes.submit}
@@ -185,8 +185,7 @@ class NewRecipe extends Component {
 NewRecipe = reduxForm({form: 'newRecipe', destroyOnUnmount: false})(NewRecipe)
 const selector = formValueSelector('newRecipe')
 const mapStateToProps = state => ({
-  processos: selector(state, 'processos'),
-  ingredientes: selector(state, 'ingredientes')
+  processos: selector(state, 'processos')
 })
 const mapDispatchToProps = dispatch => bindActionCreators({ init }, dispatch)
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(NewRecipe))
