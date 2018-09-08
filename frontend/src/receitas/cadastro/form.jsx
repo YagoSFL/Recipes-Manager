@@ -3,13 +3,12 @@ import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { init } from '../../actions/recipeActions'
-import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import { Typography, Grid, TextField, Button, Checkbox, Tooltip,
   Radio, RadioGroup, FormControlLabel } from '@material-ui/core'
 import { AvTimer, Person } from '@material-ui/icons'
 import { Scale } from 'mdi-material-ui'
 import ItemFields from './itemField'
-import ProcessItem from './processItem'
 import Icon from '../../common/icons'
 import tags from '../../common/arrayTags'
 
@@ -103,7 +102,7 @@ const styles = theme => ({
 class NewRecipe extends Component {
 
   render() {
-    const { classes, handleSubmit, init, processos } = this.props
+    const { classes, handleSubmit, init } = this.props
 
     return (
       <form autoComplete='off' onSubmit={handleSubmit}>
@@ -168,7 +167,19 @@ class NewRecipe extends Component {
             <Typography variant='display2' className={classes.titles}>
                 Ingredientes
             </Typography>
-            <ProcessItem processo={processos}/>          
+            <ItemFields processo='processos' 
+              field='ingredientes' width={{width: '60%'}}
+              input='Ingrediente'
+            />          
+            </Grid>
+            <Grid item md={12}>
+            <Typography variant='display2' className={classes.titles}>
+                Modo de Preparo
+            </Typography>
+            <ItemFields processo='processos' 
+              field='preparos' width={{width: '90%'}}
+              input='Descrição'
+            />          
             </Grid>
             <Grid item md={12} className={classes.footer}>
               <Button variant='contained' className={classes.submit}
@@ -183,9 +194,5 @@ class NewRecipe extends Component {
 
 }
 NewRecipe = reduxForm({form: 'newRecipe', destroyOnUnmount: false})(NewRecipe)
-const selector = formValueSelector('newRecipe')
-const mapStateToProps = state => ({
-  processos: selector(state, 'processos')
-})
 const mapDispatchToProps = dispatch => bindActionCreators({ init }, dispatch)
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(NewRecipe))
+export default withStyles(styles)(connect(null, mapDispatchToProps)(NewRecipe))

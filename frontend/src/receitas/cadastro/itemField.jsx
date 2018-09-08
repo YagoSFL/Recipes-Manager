@@ -1,88 +1,128 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Field, FieldArray } from 'redux-form'
-import { TextField, Button, List, ListItem, ListItemText } from '@material-ui/core'
+import { TextField, Button, List, ListItem, ListSubheader,
+  Tooltip } from '@material-ui/core'
 import {Delete, Add} from '@material-ui/icons'
 import If from '../../common/if'
 
 const styles = theme => ({
     AddColor: {
+        marginLeft: 10,
         backgroundColor: '#B71C1C',
         '&:hover': {
           backgroundColor: '#C62828'
         },
         color: '#FAFAFA',
       },
-    EditColor: {
-        backgroundColor: '#FFC107',
+    TrashColor: {
+        marginLeft: 10,
+        backgroundColor: '#757575',
         '&:hover': {
-          backgroundColor: '#FFCA28'
+          backgroundColor: '#9E9E9E'
         },
         color: '#FAFAFA'
-      }
+      },
+    ProcField: {
+      width: '40%'
+    }
 })
-
-const renderTextField = ({
-    input,
-    ...custom
-  }) => (
-    <TextField
-      {...input}
-      {...custom}
-    />
-  )
-
-  const renderProcess = ({ fields }) => (
-    <List>
-      <ListItem>
-        <Button variant='fab' mini onClick={() => fields.push({})}><Add/></Button>
-      </ListItem>
-      {fields.map((proc, index) =>
-        <ListItem key={index}>
-          <Field
-            name={`${proc}.etapa`}
-            component={renderTextField}
-            label="Processo"/>
-            <Button variant='fab' mini onClick={() => fields.remove(index)}><Delete/></Button>
-          <FieldArray props={`${proc}.ingredientes`} component={renderItems}/>
-        </ListItem>
-      )}
-    </List>
-  )
-  
-  const renderItems = ({ fields }) => (
-    <List>
-      <ListItem>
-        <Button variant='fab' mini onClick={() => fields.push()}><Add/></Button>
-      </ListItem>
-      {fields.map((ingrediente, index) =>
-        <ListItem key={index}>
-          <Field
-            name={`${ingrediente}.qtd`}
-            component={renderTextField}
-            label='Qtd'/>
-          <Field
-            name={`${ingrediente}.desc`}
-            component={renderTextField}
-            label='Ingrediente'/>
-            <Button variant='fab' mini onClick={() => fields.remove(index)}><Delete/></Button>
-        </ListItem>
-      )}
-    </List>
-  )
 
 class ItemFields extends Component {
 
   render(){
 
-    const { processo } = this.props
+    const { classes, processo, field, width, input } = this.props
+
+    const renderTextField = ({
+      input,
+      ...custom
+    }) => (
+      <TextField
+        {...input}
+        {...custom}
+      />
+    )
+  
+    const renderProcess = ({ fields }) => 
+      (
+        <List>
+          <ListItem >
+            <Tooltip title='Novo Processo'>
+            <Button variant='fab' 
+            mini 
+            onClick={() => fields.push({})} 
+            className={classes.AddColor}>
+              <Add/>
+            </Button>
+            </Tooltip>
+          </ListItem>
+          
+          {fields.map((proc, index) =>
+            <ListSubheader key={index} disableSticky style={{paddingTop: 20}}>
+              <Field
+                name={`${proc}.etapa`}
+                component={renderTextField}
+                label="Processo" 
+                className={classes.ProcField}/>
+                <Tooltip title='Remover Processo'>
+                <Button variant='fab' 
+                  mini onClick={() => fields.remove(index)} 
+                  className={classes.TrashColor}>
+                  <Delete/>
+                </Button>
+                </Tooltip>
+              <FieldArray name={`${proc}.${field}`} component={renderItems}/>
+            </ListSubheader>
+          )}
+        </List>
+      )
+    const renderItems = ({ fields }) => (
+      <List style={{margin: 0}}>
+        {fields.map((item, index) =>
+          <ListItem key={index}>
+          <If teste={field === 'ingredientes'}>
+            <Field
+              name={`${item}.qtd`}
+              component={renderTextField}
+              label='Qtd'
+              style={{marginRight: 10}}/>
+            </If>
+            {`${index + 1}. `}
+            <Field
+              name={`${item}.desc`}
+              component={renderTextField}
+              label={input}
+              style={width}/>
+              <Tooltip title='Remover Ingrediente'>
+              <Button variant='fab' 
+                mini onClick={() => fields.remove(index)}
+                className={classes.TrashColor}>
+                <Delete/>
+              </Button>
+              </Tooltip>
+              <Tooltip title='Add Ingrediente'>
+              <Button variant='fab' 
+                mini 
+                onClick={() => fields.push()} 
+                className={classes.AddColor}>
+                <Add/>
+              </Button>
+              </Tooltip>
+          </ListItem>
+        )}
+      </List>
+    )
 
     return <div>
-        <FieldArray props={processo} component={renderProcess} />
+        <FieldArray name={processo} 
+          component={renderProcess}
+          field={field}
+          width={width}
+          input={input} 
+        />
     </div>
   }
 }
 
-export default ItemFields
+export default withStyles(styles)(ItemFields)
