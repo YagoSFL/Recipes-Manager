@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles'
 import { MenuList, MenuItem, ListItemText, Paper, Avatar, Grow,
   ListItemSecondaryAction, IconButton, Dialog, DialogActions,
   DialogContent, DialogContentText, DialogTitle, Button } from '@material-ui/core'
-import LocalDining from '@material-ui/icons/LocalDining'
 import {Delete} from '@material-ui/icons'
 import Icon from  '../common/icons'
 
@@ -65,7 +64,7 @@ class RecipesList extends Component {
                   <MenuList key={r._id}>
                       <MenuItem className={classes.item} 
                           onClick={() => selectRecipe(r)}>
-                        <Avatar><LocalDining/></Avatar>
+                        <Avatar>{r.nome.charAt(0)}</Avatar>
                         <ListItemText primary={r.nome} style={{width: 150}} 
                           secondary={categorias}/>
                           <ListItemSecondaryAction>

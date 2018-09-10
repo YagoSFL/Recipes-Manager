@@ -8,9 +8,7 @@ import tags from '../../common/arrayTags'
 const styles = theme => ({
     root: {
         overflow: 'auto',
-        [theme.breakpoints.up('md')]: {
-          maxHeight: 518
-        },
+        height: '100%',
         color: '#757575'
     },
     colorSwitchBase: {

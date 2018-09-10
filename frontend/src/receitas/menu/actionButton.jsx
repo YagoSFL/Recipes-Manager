@@ -23,9 +23,9 @@ const styles = theme => ({
       color: '#FAFAFA',
     },
     EditColor: {
-      backgroundColor: '#FFC107',
+      backgroundColor: '#757575',
       '&:hover': {
-        backgroundColor: '#FFCA28'
+        backgroundColor: '#9E9E9E'
       },
       color: '#FAFAFA'
     }

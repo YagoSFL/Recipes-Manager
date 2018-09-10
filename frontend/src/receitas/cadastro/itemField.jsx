@@ -3,11 +3,12 @@ import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/
 import { Field, FieldArray } from 'redux-form'
 import { TextField, Button, List, ListItem, ListSubheader,
   Tooltip } from '@material-ui/core'
-import {Delete, Add} from '@material-ui/icons'
+import {Add} from '@material-ui/icons'
+import {Minus} from 'mdi-material-ui'
 import If from '../../common/if'
 
 const styles = theme => ({
-    AddColor: {
+    addColor: {
         marginLeft: 10,
         backgroundColor: '#B71C1C',
         '&:hover': {
@@ -15,7 +16,7 @@ const styles = theme => ({
         },
         color: '#FAFAFA',
       },
-    TrashColor: {
+    trashColor: {
         marginLeft: 10,
         backgroundColor: '#757575',
         '&:hover': {
@@ -23,10 +24,15 @@ const styles = theme => ({
         },
         color: '#FAFAFA'
       },
-    ProcField: {
+    procField: {
       width: '40%'
     },
-    ExtendedIcon: {
+    qtdField: {
+      [theme.breakpoints.down('sm')]: {
+        width: '20%'
+      }
+    },
+    extendedIcon: {
       marginRight: 5
     }
 })
@@ -64,8 +70,8 @@ class ItemFields extends Component {
             <Tooltip title='Novo Processo'>
             <Button variant='extendedFab' 
             onClick={() => fields.push({})} 
-            className={classes.AddColor}>
-              <Add className={classes.ExtendedIcon}/>
+            className={classes.addColor}>
+              <Add className={classes.extendedIcon}/>
               Processo
             </Button>
             </Tooltip>
@@ -77,12 +83,12 @@ class ItemFields extends Component {
                 name={`${proc}.etapa`}
                 component={renderTextField}
                 label="Processo" 
-                className={classes.ProcField}/>
+                className={classes.procField}/>
                 <Tooltip title='Remover Processo'>
                 <Button variant='fab' 
                   mini onClick={() => fields.remove(index)} 
-                  className={classes.TrashColor}>
-                  <Delete/>
+                  className={classes.trashColor}>
+                  <Minus/>
                 </Button>
                 </Tooltip>
               <FieldArray name={`${proc}.${field}`} component={renderItems}/>
@@ -96,8 +102,8 @@ class ItemFields extends Component {
         <Tooltip title='Add Ingrediente'>
           <Button variant='extendedFab' 
             onClick={() => fields.push()} 
-            className={classes.AddColor}>
-            <Add className={classes.ExtendedIcon}/>
+            className={classes.addColor}>
+            <Add className={classes.extendedIcon}/>
             {input}
           </Button>
         </Tooltip>
@@ -110,7 +116,8 @@ class ItemFields extends Component {
               name={`${item}.qtd`}
               component={renderTextField}
               label='Qtd'
-              style={{marginRight: 10}}/>
+              style={{marginRight: 10}}
+              className={classes.qtdField}/>
             </If>
             <Field
               name={`${item}.desc`}
@@ -122,8 +129,8 @@ class ItemFields extends Component {
               <Tooltip title='Remover Ingrediente'>
               <Button variant='fab' 
                 mini onClick={() => fields.remove(index)}
-                className={classes.TrashColor}>
-                <Delete/>
+                className={classes.trashColor}>
+                <Minus/>
               </Button>
               </Tooltip>
               

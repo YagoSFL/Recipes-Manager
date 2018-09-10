@@ -1,14 +1,11 @@
 import React, { Fragment } from 'react'
-import { BrowserRouter } from 'react-router-dom'
 
-import Routes from './routes'
+import Recipes from './recipes'
 import Messages from '../common/msgs'
 
 export default props => (
     <Fragment>
-        <BrowserRouter>
-            <Routes />
-        </BrowserRouter>
+        <Recipes />
         <Messages />
     </Fragment>
     

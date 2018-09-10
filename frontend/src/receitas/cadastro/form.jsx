@@ -142,7 +142,7 @@ class NewRecipe extends Component {
  
     return (
       <form autoComplete='off' onSubmit={handleSubmit}>
-        <Grid container spacing={24}>
+        <Grid container spacing={16}>
             <Grid item md={8}>
                 <Field component={renderTextField} label='Nome da Receita' name='nome'
                     style={{width: '100%'}}/>

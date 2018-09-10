@@ -6,12 +6,11 @@ import { handleFilter, showData } from  '../../actions/recipeActions'
 import SwitchList from './switchList'
 import MenuBar from './menuBar'
 import If from '../../common/if'
-import { Typography, Hidden, Drawer, Divider, CssBaseline,
+import { Typography, Hidden, Drawer, CssBaseline,
      ListItemIcon, MenuList, MenuItem, Grow } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { Home, Receipt } from '@material-ui/icons'
+import { Receipt } from '@material-ui/icons'
 import FloatingButton from './actionButton'
-import { Link } from 'react-router-dom'
 
 const drawerWidth = 330
 
@@ -23,22 +22,26 @@ const styles = theme => ({
     position: 'absolute',
     display: 'flex',
     width: '100%',
+    height: '100%'
+  },
+  actionButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
       position: 'relative'
-    }
+    },
   },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
     overflowX: 'auto',
-    [theme.breakpoints.up('md')]: {
-        maxHeight: 630
-      }
+    height: '100%'
   },
 })
 
@@ -60,24 +63,15 @@ class MenuApp extends Component {
         const drawer = (
         <div>
             <MenuList component="nav" >
-                    <MenuItem component={Link} to='/' onClick={ () => showData()}>
-                    <ListItemIcon >
-                        <Home />
-                    </ListItemIcon>
-                    <Typography variant="title">
-                        Home
-                    </Typography>
-                    </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={ () => showData()}>
                 <ListItemIcon>
                     <Receipt />
                 </ListItemIcon>
                 <Typography variant="title">
-                    Lista de Compras
+                    Lista de Receitas
                 </Typography>
                 </MenuItem>
             </MenuList>
-            <Divider />
             <If teste={showFilters}>
                 <Grow in={showFilters} timeout={500}>
                     <SwitchList onChange={handleFilter}/>
@@ -121,7 +115,8 @@ class MenuApp extends Component {
                         <div className={classes.content}>
                             {children}
                             <If teste={!hide}>
-                                <FloatingButton onClick={clickAction} value={buttonValue}/>
+                                <FloatingButton onClick={clickAction} value={buttonValue} 
+                                    className={classes.actionButton}/>
                             </If>
                         </div>
                     </div>
