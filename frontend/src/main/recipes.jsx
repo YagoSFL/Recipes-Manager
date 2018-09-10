@@ -49,7 +49,8 @@ class Recipes extends Component {
                         <Grow in={visible === 'Cadastrar'}>
                             <div style={{paddingTop: 50}}>
                                 <Paper className={classes.root}>
-                                    <Form onSubmit={createRecipe}/>
+                                    <Form onSubmit={createRecipe}
+                                        buttonLabel='Cadastrar'/>
                                 </Paper>
                             </div>
                         </Grow>
@@ -60,7 +61,8 @@ class Recipes extends Component {
                         <Grow in={visible === 'Editar'}>
                             <div style={{paddingTop: 50}}>
                                 <Paper className={classes.root}>
-                                        <Form onSubmit={editRecipe}/>
+                                        <Form onSubmit={editRecipe}
+                                            buttonLabel='Salvar'/>
                                 </Paper>
                             </div>
                         </Grow>

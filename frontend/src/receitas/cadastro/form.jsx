@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { init } from '../../actions/recipeActions'
@@ -25,16 +25,30 @@ const styles = theme => ({
       [theme.breakpoints.down('sm')]: {
         fontSize: 20
       }
-  },
-    description: {
-        padding: 10,
-        [theme.breakpoints.down('sm')]: {
-          marginLeft: 20
-        }
     },
-    submit: {
-      float: 'right',
-      position: 'relative',
+    description: {
+      padding: 10,
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: 20
+      }
+    },
+    Submit: {
+      marginLeft: 10,
+      float: 'Right',
+      backgroundColor: '#B71C1C',
+      '&:hover': {
+        backgroundColor: '#C62828'
+      },
+      color: '#FAFAFA',
+    },
+  Cancel: {
+      marginLeft: 10,
+      float: 'Right',
+      backgroundColor: '#757575',
+      '&:hover': {
+        backgroundColor: '#9E9E9E'
+      },
+      color: '#FAFAFA'
     },
     footer: {
       padding: 20
@@ -48,6 +62,25 @@ const styles = theme => ({
     checked: {},
     type: {
       marginLeft: 15
+    },
+    cssLabel: {
+      '&$cssFocused': {
+        color: '#B71C1C',
+      },
+    },
+    cssFocused: {},
+    cssUnderline: {
+      '&:after': {
+        borderBottomColor: '#B71C1C',
+      },
+    },
+  })
+
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#B71C1C'
+      }
     }
   })
 
@@ -55,33 +88,35 @@ const styles = theme => ({
     input,
     ...custom
   }) => (
-    <TextField
-      {...input}
-      {...custom}
-    />
+    <MuiThemeProvider theme={theme}>
+      <TextField
+        {...input}
+        {...custom}
+      />
+    </MuiThemeProvider>
   )
 
-  const renderCheckboxGroup = ({ name, options,  input, meta, ...custom}) => {
+  const renderCheckboxGroup = ({ required, options, input, meta, ...custom}) => {
     let tags = options.map((tag, i) => (
       <Tooltip key={i} title={tag}>
         <Checkbox
-          name={`${name}[${i}]`}
-          defaultChecked={input.value.indexOf(tag) !== -1}
+          name={`${tag}[${i}]`}
+          value={tag}
           checked={input.value.indexOf(tag) !== -1}
           icon={<Icon icone={tag}/>}
           checkedIcon={<Icon icone={tag}/>}
-          onChange={(checked) => {
-            let newValue = [...input.value];
-            if (checked){
-              newValue.push(tag);
-            } else {
-              newValue.splice(newValue.indexOf(tag), 1);
-            }
-            return input.onChange(newValue);
+          onChange={(event) => {
+              const newValue = [...input.value];
+              if (event.target.checked) {
+                  newValue.push(tag);
+              } else {
+                  newValue.splice(newValue.indexOf(tag), 1);
+              }
+              return input.onChange(newValue);
           }}
-          {...custom}
-        />
+          {...custom}/>                           
       </Tooltip >
+      
     ));
     return (
       <div>
@@ -99,16 +134,18 @@ const styles = theme => ({
       onChange={(event, value) => input.onChange(value)}
     />
   )
+
 class NewRecipe extends Component {
 
   render() {
-    const { classes, handleSubmit, init } = this.props
-
+    const { classes, handleSubmit, init, buttonLabel } = this.props
+ 
     return (
       <form autoComplete='off' onSubmit={handleSubmit}>
         <Grid container spacing={24}>
             <Grid item md={8}>
-                <Field component={renderTextField} label='Nome da Receita' name='nome'/>
+                <Field component={renderTextField} label='Nome da Receita' name='nome'
+                    style={{width: '100%'}}/>
             </Grid>
             <Grid item md={4}>
                 <Typography variant='title' className={classes.subtitles}>
@@ -182,9 +219,9 @@ class NewRecipe extends Component {
             />          
             </Grid>
             <Grid item md={12} className={classes.footer}>
-              <Button variant='contained' className={classes.submit}
-                type='submit'>Cadastrar</Button>
-              <Button variant='contained' className={classes.submit}
+              <Button variant='contained' className={classes.Submit}
+                type='submit'>{buttonLabel}</Button>
+              <Button variant='contained' className={classes.Cancel}
                 onClick={init}>Cancelar</Button>
             </Grid>
         </Grid>

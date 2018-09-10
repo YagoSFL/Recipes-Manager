@@ -18,7 +18,7 @@ const recipeSchema = new mongoose.Schema({
     porcao: { type: Number },
     tags: [String],
     processos: [{
-        etapa: { type: String, required: true },
+        etapa: { type: String, required: false },
         ingredientes: [ingredSchema],
         preparos: [todoSchema]
     }]

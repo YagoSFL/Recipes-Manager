@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { Field, FieldArray } from 'redux-form'
 import { TextField, Button, List, ListItem, ListSubheader,
   Tooltip } from '@material-ui/core'
@@ -25,7 +25,18 @@ const styles = theme => ({
       },
     ProcField: {
       width: '40%'
+    },
+    ExtendedIcon: {
+      marginRight: 5
     }
+})
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#B71C1C'
+    }
+  }
 })
 
 class ItemFields extends Component {
@@ -38,10 +49,12 @@ class ItemFields extends Component {
       input,
       ...custom
     }) => (
-      <TextField
-        {...input}
-        {...custom}
-      />
+      <MuiThemeProvider theme={theme}>
+        <TextField
+          {...input}
+          {...custom}
+        />
+      </MuiThemeProvider>
     )
   
     const renderProcess = ({ fields }) => 
@@ -49,11 +62,11 @@ class ItemFields extends Component {
         <List>
           <ListItem >
             <Tooltip title='Novo Processo'>
-            <Button variant='fab' 
-            mini 
+            <Button variant='extendedFab' 
             onClick={() => fields.push({})} 
             className={classes.AddColor}>
-              <Add/>
+              <Add className={classes.ExtendedIcon}/>
+              Processo
             </Button>
             </Tooltip>
           </ListItem>
@@ -79,8 +92,19 @@ class ItemFields extends Component {
       )
     const renderItems = ({ fields }) => (
       <List style={{margin: 0}}>
+      <ListItem>
+        <Tooltip title='Add Ingrediente'>
+          <Button variant='extendedFab' 
+            onClick={() => fields.push()} 
+            className={classes.AddColor}>
+            <Add className={classes.ExtendedIcon}/>
+            {input}
+          </Button>
+        </Tooltip>
+      </ListItem>
         {fields.map((item, index) =>
           <ListItem key={index}>
+          {`${index + 1}. `}
           <If teste={field === 'ingredientes'}>
             <Field
               name={`${item}.qtd`}
@@ -88,10 +112,11 @@ class ItemFields extends Component {
               label='Qtd'
               style={{marginRight: 10}}/>
             </If>
-            {`${index + 1}. `}
             <Field
               name={`${item}.desc`}
               component={renderTextField}
+              multiline
+              rowsMax="4"
               label={input}
               style={width}/>
               <Tooltip title='Remover Ingrediente'>
@@ -101,14 +126,7 @@ class ItemFields extends Component {
                 <Delete/>
               </Button>
               </Tooltip>
-              <Tooltip title='Add Ingrediente'>
-              <Button variant='fab' 
-                mini 
-                onClick={() => fields.push()} 
-                className={classes.AddColor}>
-                <Add/>
-              </Button>
-              </Tooltip>
+              
           </ListItem>
         )}
       </List>
