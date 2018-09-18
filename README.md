@@ -23,8 +23,8 @@ Para o frontend:
 
 # Instalação e execução
 
-Para que a aplicação funcione corretamente as dependencias devem ser instaladas
-via npm, para isso será necessario ter instalado na maquina: 
+Para que a aplicação funcione corretamente os seuintes sofwares devem estar
+devidamente instalados na maquina: 
 
 - NodeJS - versão 8.12 ou superior
 - MongoDb - versão 3.6 ou superior
@@ -32,15 +32,14 @@ via npm, para isso será necessario ter instalado na maquina:
 Para a executar a aplicação seguir os seguintes passos:
 
 Para a Api/Backend:
-- Acessar o diretório ../RecipesManager/api e executar o comando "npm i" para
-baixar as dependencias necessarioas conforme arquivo package.json
+- Acessar o diretório ../RecipesManager/api
+- executar o comando "npm i" para instalação das depêndencias
 - Após o fim da instalação executar o comando "npm run production" para executar 
-o pm2 responsavel por rodar a aplicação. 
+a aplicação utilizando o módulo pm2 do node. 
 
 Para o frontend:
-- Acessar o diretório ../RecipesManager/frontend e executar o comando 
-"npm i" para baixar as dependencias necessarioas conforme arquivo package.json
+- Acessar o diretório ../RecipesManager/frontend
+- executar o comando "npm i"
 - Após o fim da instalação executar o comando "npm start" para iniciar a 
 aplicação
-- Ao fazer isso uma aba sera aberta no navegador acessando rodando a aplicação
-localmente na porta 3000
+- A aplicação roda localmente na porta 3000 (http://localhost:3000)
